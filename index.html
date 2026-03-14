@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MatchMingle - AI Dating Simulator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Welcome Screen -->
+    <div id="WelcomeScreen" class="screen active">
+        <div class="welcome-container">
+            <div class="logo-area">
+                <div class="logo-icon">💕</div>
+                <h1>MatchMingle</h1>
+                <p class="tagline">AI-Powered Dating Simulator</p>
+            </div>
+            <div class="welcome-form">
+                <label for="UserNameInput">What should we call you?</label>
+                <input type="text" id="UserNameInput" placeholder="Enter your name..." autocomplete="off">
+                <button id="StartButton" onclick="startApp()">Start Swiping ✨</button>
+            </div>
+            <p class="powered-by">Powered by <a href="https://pollinations.ai" target="_blank">Pollinations AI</a></p>
+        </div>
+    </div>
+
+    <!-- Swipe Screen -->
+    <div id="SwipeScreen" class="screen">
+        <header id="SwipeHeader">
+            <div class="header-left">
+                <span class="logo-small">💕</span>
+                <span class="app-name">MatchMingle</span>
+            </div>
+            <div class="header-right">
+                <button id="MatchesButton" onclick="showMatches()" class="icon-btn">
+                    💬 <span id="MatchCount" class="badge hidden">0</span>
+                </button>
+            </div>
+        </header>
+        <div id="CardStack">
+            <div id="CurrentCard" class="profile-card">
+                <div id="ProfileImage" class="card-image">
+                    <div class="loading-spinner"></div>
+                </div>
+                <div class="card-info">
+                    <h2 id="ProfileName">Loading...</h2>
+                    <p id="ProfileAge" class="age"></p>
+                    <p id="ProfileBio" class="bio"></p>
+                    <div id="ProfileTags" class="tags"></div>
+                </div>
+            </div>
+        </div>
+        <div id="SwipeActions">
+            <button class="action-btn nope" onclick="swipeLeft()">✕</button>
+            <button class="action-btn super" onclick="swipeSuper()">⭐</button>
+            <button class="action-btn like" onclick="swipeRight()">♥</button>
+        </div>
+    </div>
+
+    <!-- Match Popup -->
+    <div id="MatchPopup" class="popup hidden">
+        <div class="popup-content match-content">
+            <h2>🎉 It's a Match!</h2>
+            <div class="match-photos">
+                <img id="MatchPhoto" src="" alt="Match">
+            </div>
+            <p id="MatchText">You and <span id="MatchName"></span> liked each other!</p>
+            <button onclick="openChatFromMatch()" class="btn-primary">Send a Message</button>
+            <button onclick="closeMatchPopup()" class="btn-secondary">Keep Swiping</button>
+        </div>
+    </div>
+
+    <!-- Matches List Screen -->
+    <div id="MatchesScreen" class="screen">
+        <header>
+            <button onclick="showSwipe()" class="back-btn">← Back</button>
+            <h2>Your Matches</h2>
+        </header>
+        <div id="MatchesList" class="matches-list"></div>
+        <div id="NoMatches" class="empty-state">
+            <p>No matches yet. Keep swiping! 💫</p>
+        </div>
+    </div>
+
+    <!-- Chat Screen -->
+    <div id="ChatScreen" class="screen">
+        <header id="ChatHeader">
+            <button onclick="showMatches()" class="back-btn">←</button>
+            <div class="chat-header-info">
+                <img id="ChatAvatar" src="" alt="" class="chat-avatar">
+                <div>
+                    <h3 id="ChatName"></h3>
+                    <span id="ChatStatus" class="status">Online</span>
+                </div>
+            </div>
+        </header>
+        <div id="ChatWindowMain" class="chat-messages"></div>
+        <div id="TypingIndicator" class="typing-indicator hidden">
+            <span></span><span></span><span></span>
+        </div>
+        <div id="ChatInputArea" class="chat-input-area">
+            <input type="text" id="MessageInput" placeholder="Type a message..." autocomplete="off"
+                   onkeydown="if(event.key==='Enter')sendMessage()">
+            <button onclick="sendMessage()" class="send-btn">➤</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
