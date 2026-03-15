@@ -6,6 +6,7 @@ const API_BASE = "https://gen.pollinations.ai";
 const API_TEXT = `${API_BASE}/v1/chat/completions`;
 const API_IMAGE = `${API_BASE}/image`;
 const TEXT_MODEL = "openai";
+const REFERRER = "manzaro1.github.io";
 
 // State
 let userName = "";
@@ -72,12 +73,12 @@ const maleCharacters = [
 
 function generateCharacterImageUrl(lookPrompt) {
     const encodedPrompt = encodeURIComponent(`dating app profile photo, attractive, natural lighting, portrait photography, ${lookPrompt}`);
-    return `${API_IMAGE}/${encodedPrompt}?width=400&height=500&seed=${Math.floor(Math.random() * 10000)}&model=flux&nologo=true&private=true`;
+    return `${API_IMAGE}/${encodedPrompt}?width=400&height=500&seed=${Math.floor(Math.random() * 10000)}&model=flux&nologo=true&private=true&referrer=${REFERRER}`;
 }
 
 function generateCharacterThumbUrl(lookPrompt, seed) {
     const encodedPrompt = encodeURIComponent(`dating app profile photo, portrait, ${lookPrompt}`);
-    return `${API_IMAGE}/${encodedPrompt}?width=100&height=100&seed=${seed || 42}&model=flux&nologo=true&private=true`;
+    return `${API_IMAGE}/${encodedPrompt}?width=100&height=100&seed=${seed || 42}&model=flux&nologo=true&private=true&referrer=${REFERRER}`;
 }
 
 function buildCharacterSystemPrompt(character) {
@@ -115,11 +116,15 @@ async function generateCharacterReply(character, userMessage) {
     ];
 
     try {
-        const response = await fetch(API_TEXT, {
+        const response = await fetch(`${API_TEXT}?referrer=${REFERRER}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ messages, model: TEXT_MODEL, seed: Math.floor(Math.random() * 10000) })
         });
+        if (!response.ok) {
+            console.error("API error:", response.status, response.statusText);
+            return "Hmm, my connection is acting up. Try again? 📱";
+        }
         const data = await response.json();
         const reply = data.choices?.[0]?.message?.content || "Hey, sorry I got distracted! What were you saying? 😊";
         chatHistories[character.name].push({ role: "assistant", content: reply });
