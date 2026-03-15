@@ -19,6 +19,27 @@
             <div class="welcome-form">
                 <label for="UserNameInput">What should we call you?</label>
                 <input type="text" id="UserNameInput" placeholder="Enter your name..." autocomplete="off">
+
+                <div class="option-group">
+                    <label class="group-label">I am a...</label>
+                    <div class="radio-row">
+                        <label class="radio-pill"><input type="radio" name="gender" value="male"><span>👨 Man</span></label>
+                        <label class="radio-pill"><input type="radio" name="gender" value="female"><span>👩 Woman</span></label>
+                        <label class="radio-pill"><input type="radio" name="gender" value="nonbinary"><span>🌈 Non-binary</span></label>
+                    </div>
+                    <span id="GenderError" class="form-error"></span>
+                </div>
+
+                <div class="option-group">
+                    <label class="group-label">Show me...</label>
+                    <div class="radio-row">
+                        <label class="radio-pill"><input type="radio" name="preference" value="women"><span>👩 Women</span></label>
+                        <label class="radio-pill"><input type="radio" name="preference" value="men"><span>👨 Men</span></label>
+                        <label class="radio-pill"><input type="radio" name="preference" value="both"><span>💕 Everyone</span></label>
+                    </div>
+                    <span id="PrefError" class="form-error"></span>
+                </div>
+
                 <button id="StartButton" onclick="startApp()">Start Swiping ✨</button>
             </div>
             <p class="powered-by">Powered by <a href="https://pollinations.ai" target="_blank">Pollinations AI</a></p>
